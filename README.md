@@ -190,7 +190,7 @@
 ---
 - ## OVERVIEW:
 - ###### To understand the flow of how this all works please consult the diagram below.
-<img src="Overview.png" height="auto" width="auto">
+<img src="Images/Overview.png" height="auto" width="auto">
 
 ---
 - ## GAME DETAILS:
@@ -198,7 +198,7 @@
     - To make the game a bit easier to follow please consult the `diagram below`. The Area highlighted in `Red` will be referred to as the `Game Loop` and is referenced throughout the specification. Before the game begins a user `chooses` a `username` and has the option to either `generate` a `GameID` or `enter` in a `GameID`. When a `valid` `GameID` is entered it `automatically` starts the `Game Loop` After a `5 seconds` countdown on both screens.
     - This is a `2 player` game `(1 vs 1)`, if someone else enters in a GameID that is `already in progress` (game started) they `should not` be allowed to join in the game and an appropriate `error message` should be shown.
 
-    <img src="Game_Loop.png" height="auto" width="auto">
+    <img src="Images/Game_Loop.png" height="auto" width="auto">
 
 ---
 - ## INSTRUCTIONS:
