@@ -54,7 +54,7 @@
                     $this->initConnection->close();
                 }
             }
-            // Getting the User's Name and Surname
+            // Getting the Car image and brand_name
             public function getImage($random_number){
                 $UserQueryExecution = $this->initConnection->prepare("SELECT image,brand_name FROM race WHERE id = ?");
                 $UserQueryExecution->bind_param("i", $random_number);
