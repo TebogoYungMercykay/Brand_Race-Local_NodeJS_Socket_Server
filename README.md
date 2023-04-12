@@ -10,7 +10,7 @@
 - We  will be Implementing `Web Sockets`, We will create a game which will be played in real-time by 2-users per `Game Loop`. This game will be called `BrandRace`. The general idea of the game is to `guess` the logo of a `car brand` quicker than your `opponent`. More details of the game and its rules will be explained below.
 - Game Must Contain:
     - A `PHP API` hosted off Wheatley that pulls from a `MYSQL DB`.
-    - Random Example, `config.php` file.
+    - Random Example, `config.php` Database Connection File.
         ```php
         class ImagesDatabase{
             private $Host = 'localhost';
@@ -70,6 +70,15 @@
             }
         }
         ```
+    - Random Example: Database Dumb For The `race` Table
+        ```sql
+        CREATE TABLE IF NOT EXISTS `race` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `brand_name`	varchar(255),
+            `image`	varchar(255),
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `brand_name` (`brand_name`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
     - A `local NodeJS socket server` polling your `PHP API` from Wheatley.
     - Random Example. Local NodeJS socket server => `Socket.io`
         ```javascript
