@@ -14,3 +14,9 @@ Step 4: Open a browser and paste this URL to view the Basic Front End for the AP
 Step 5: You can add the "API_MYSQL_DATABASE" folder to your Workspace on VS Code or any IDE/Tool/Software of your choice.
     - To browse through the code
     - And probably modify the codes to fit your requirements.
+    
+----------------------- LINKS -----------------------
+phpMyAdmin Server: http://localhost/phpmyadmin/index.php?route=/
+Database: http://localhost/phpmyadmin/index.php?route=/database/structure&db=brands_database
+API: http://localhost/API_MYSQL_DATABSE/php/api.php
+Front-End: http://localhost/API_MYSQL_DATABSE/php/brand_race.php
