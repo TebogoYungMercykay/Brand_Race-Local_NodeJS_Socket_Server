@@ -223,7 +223,7 @@
             - #### `Link` - Wou will use a link to an external image.
                 - `Example`. https://images.pexels.com/photos/63294/autos-technology-vw-multi-storey-car-park-63294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
                 - `Example Image`:
-                - <img src="https://images.pexels.com/photos/63294/autos-technology-vw-multi-storey-car-park-63294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="auto" width="auto">
+                - <img src="https://images.pexels.com/photos/63294/autos-technology-vw-multi-storey-car-park-63294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" height="400" width="400">
 
         - We will write a `short` explanation of our choice and why we believe its the `better` option.
     - #### Task 2: Multi-User NodeJS server:
