@@ -167,7 +167,7 @@
 ---
 - # TASKS:
     - ### Remove `(*)` for Completed Tasks.
-    - ### Task 1 - PHP API & DB `(*)`
+    - ### Task 1 - PHP API & DB
         - `MySQL` DB
         - Ability to `store` images in the `DB`
         - Ability to `retrieve` images from an `endpoint`
