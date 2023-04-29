@@ -174,6 +174,7 @@
         - ReadMe explanation, `1 vs 5` images at a time
         - ReadMe explanation, `Base64` vs `Link`
     - ### Task 2 - Multi-User server `(*)`
+        - `Task Pending`.
         - `Port` can be `chosen`at `run-time`
         - `Reserved Ports` cannot be chosen
         - Server can accept `multiple` clients `simultaneously`
@@ -328,7 +329,7 @@
         - Safari
         - Microsoft Edge
         - Brave
-        - Opera
+        - Opera Mini
         - Not Recommended: Tor (Onion Routing)
 ---
 ---
