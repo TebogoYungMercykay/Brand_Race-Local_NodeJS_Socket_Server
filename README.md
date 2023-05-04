@@ -152,6 +152,7 @@
         - [expressjs](https://expressjs.com/)
         - [developer.mozill](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
     - ### `Web Sockets`:
+        - [Example Socket](socket)
         - [developer.mozill](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
         - [wikipedia](https://en.wikipedia.org/wiki/WebSocket)
         - [github](https://github.com/websockets/ws)
