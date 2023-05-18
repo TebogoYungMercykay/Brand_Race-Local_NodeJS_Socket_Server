@@ -1,0 +1,5 @@
+# To Run The Server:
+rm -rf node_modules
+npm install or npm i
+npm start
+npm run dev
