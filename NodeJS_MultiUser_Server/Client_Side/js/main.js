@@ -60,118 +60,133 @@ $('#Submit_Brand').on('click', function (event) {
     }
 });
 
-// TODO: Must Refine This Function, Which Is Basically an Implementation of The Game Loop.
-// TODO: The Intervals are Perfect, I just need to make sure they are Using Images from the API on the Wheatley server and not my Local API
-// function StartGameLoop(users, gameId, limit, clearTimeouts) {
-//     if (clearTimeouts == true) {
-//         clearTimeouts();
-//         return;
-//     }
-//     document.getElementById('Add_Contestants').textContent = users.map(user => user.username).join(' VS ');
-//     var breakOut = false;
-//     var arrayTimeoutReferences = [];
-//     function toddle(id){
-//         if(id == 'LoadingScreen'){
-//             document.getElementById('LoadingScreen').style.display = 'block';
-//             document.getElementById('DisplayStuff').style.display = 'none';
-//             document.getElementById('logoContainer').style.display = 'none';
-//             document.getElementById('gameOver').style.display = 'none';
-//         } else if(id == 'DisplayStuff') {
-//             document.getElementById('LoadingScreen').style.display = 'none';
-//             document.getElementById('DisplayStuff').style.display = 'block';
-//             document.getElementById('logoContainer').style.display = 'none';
-//             document.getElementById('gameOver').style.display = 'none';
-//         } else if(id == 'logoContainer') {
-//             document.getElementById('LoadingScreen').style.display = 'none';
-//             document.getElementById('DisplayStuff').style.display = 'none';
-//             document.getElementById('logoContainer').style.display = 'block';
-//             document.getElementById('gameOver').style.display = 'none';
-//         } else {
-//             document.getElementById('LoadingScreen').style.display = 'none';
-//             document.getElementById('DisplayStuff').style.display = 'none';
-//             document.getElementById('logoContainer').style.display = 'none';
-//             document.getElementById('gameOver').style.display = 'block';
-//         }
-//     }
-//     function clearTimeouts() {
-//         for (var i = 0; i < arrayTimeoutReferences.length; i++) {
-//             clearTimeout(arrayTimeoutReferences[i]);
-//         }
-//         arrayTimeoutReferences = []; // Reset the timeout references array
-//         breakOut = true;
-//     }
-
-//     function StartGameLoopNow(limit) {
-//         jsonObject = {
-//             "limit":limit
-//         }
-//         var json = JSON.stringify(jsonObject);
-//         // console.log(json);
-//         $.ajax({
-//             url: "http://localhost/API_MYSQL_DATABSE/php/hwa_api.php/GetRandomBrands",
-//             method: "POST",
-//             data: json,
-//             success: function(response) {
-//                 var images = response.data;
-//                 var timeoutReference = '';
-//                 console.log(images);
-//                 console.log("The Game will start in 5 Seconds!");
-//                 toddle('DisplayStuff');
-//                 if(breakOut == false){
-//                     timeoutReference = setTimeout(function() {
-//                         console.log("Displaying Image ==> ", 0);
-//                         document.getElementById('image').src = images[0].image_url;
-//                         toddle('ImageDiv');
-//                     }, 5000);
-//                     arrayTimeoutReferences.push(timeoutReference);
-//                 }
-//                 for (var j = 1; j < response.length; j++) {
-//                     if(breakOut == false){
-//                         if(j == 1){
-//                             (function(j) {
-//                                 var time = 25000;
-//                                 timeoutReference = setTimeout(function() {
-//                                     console.log("Displaying Loading Screen....", 0);
-//                                     toddle('LoadingScreen');
-//                                 }, time-5000);
-//                                 arrayTimeoutReferences.push(timeoutReference);
-//                                 timeoutReference = setTimeout(function() {
-//                                     console.log("Displaying Image ==> ", j);
-//                                     document.getElementById('image').src = images[j].image_url;
-//                                     toddle('ImageDiv');
-//                                 }, time);
-//                                 arrayTimeoutReferences.push(timeoutReference);
-//                             })(j);
-//                         } else {
-//                             (function(j) {
-//                                 var time2 = 25000 + (j-1)*20000;
-//                                 timeoutReference = setTimeout(function() {
-//                                     console.log("Displaying Loading Screen....", j-1);
-//                                     toddle('LoadingScreen');
-//                                 }, time2-5000);
-//                                 arrayTimeoutReferences.push(timeoutReference);
-//                                 timeoutReference = setTimeout(function() {
-//                                     console.log("Displaying Image ==> ", j);
-//                                     document.getElementById('image').src = images[j].image_url;
-//                                     toddle('ImageDiv');
-//                                 }, time2);
-//                                 arrayTimeoutReferences.push(timeoutReference);
-//                             })(j);
-//                         }
-//                     }
-//                 }
-//                 if(breakOut == false){
-//                     timeoutReference = setTimeout(function(){
-//                         console.log("Done Now!!!");
-//                         toddle('gameOver');
-//                     },120000);
-//                     arrayTimeoutReferences.push(timeoutReference);
-//                 }
-//             },
-//             error: function(jqXHR, textStatus, errorThrown) {
-//                 console.log(errorThrown);
-//             }
-//         });
-//     }
-//     StartGameLoopNow(limit);
-// }
+function StartGameLoop(users, gameId, limit, clearTimeouts) {
+    document.getElementById('Add_Contestants').textContent = "CONTESTANTS ARRIVED!!";
+    if (clearTimeouts == true) {
+      clearTimeouts();
+      return;
+    }
+    if (users == undefined || users.length == 0) {
+      return;
+    }
+    var winner = users[0];
+    var breakOut = false;
+    var arrayTimeoutReferences = [];
+    function toddle(id){
+        if(id == 'LoadingScreen'){
+            document.getElementById('LoadingScreen').style.display = 'inline-block';
+            document.getElementById('DisplayStuff').style.display = 'none';
+            document.getElementById('Landing_div').style.display = 'none';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('InTheGame').style.display = 'none';
+        } else if(id == 'DisplayStuff') {
+            document.getElementById('LoadingScreen').style.display = 'none';
+            document.getElementById('DisplayStuff').style.display = 'inline-block';
+            document.getElementById('Landing_div').style.display = 'none';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('InTheGame').style.display = 'none';
+        } else if(id == 'Landing_div') {
+            document.getElementById('LoadingScreen').style.display = 'none';
+            document.getElementById('DisplayStuff').style.display = 'none';
+            document.getElementById('Landing_div').style.display = 'inline-block';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('InTheGame').style.display = 'none';
+        } else if(id == 'InTheGame') {
+            document.getElementById('LoadingScreen').style.display = 'none';
+            document.getElementById('DisplayStuff').style.display = 'none';
+            document.getElementById('Landing_div').style.display = 'none';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('InTheGame').style.display = 'inline-block';
+        } else {
+            document.getElementById('LoadingScreen').style.display = 'none';
+            document.getElementById('DisplayStuff').style.display = 'none';
+            document.getElementById('Landing_div').style.display = 'none';
+            document.getElementById('gameOver').style.display = 'inline-block';
+            document.getElementById('InTheGame').style.display = 'none';
+        }
+    }
+    function clearTimeouts() {
+        for (var i = 0; i < arrayTimeoutReferences.length; i++) {
+            clearTimeout(arrayTimeoutReferences[i]);
+        }
+        arrayTimeoutReferences = []; // Reset the timeout references array
+        breakOut = true;
+    }
+    function StartGameLoopNow(limit) {
+        jsonObject = {
+            "limit":limit
+        }
+        var json = JSON.stringify(jsonObject);
+        // console.log(json);
+        $.ajax({
+            url: "http://localhost/API_MYSQL_DATABSE/php/hwa_api.php/GetRandomBrands",
+            method: "POST",
+            data: json,
+            success: function(response) {
+                var images = response.data;
+                var timeoutReference = '';
+                console.log(images);
+                console.log("The Game will start in 5 Seconds!");
+                document.getElementById('Add_Contestants').textContent = users.join(' VS ');
+                toddle('DisplayStuff');
+                if(breakOut == false){
+                    timeoutReference = setTimeout(function() {
+                        console.log("Displaying Image ==> ", 0);
+                        toddle('InTheGame');
+                        document.getElementById('imagelogo').src = images[0].image_url;
+                    }, 5000);
+                    arrayTimeoutReferences.push(timeoutReference);
+                }
+                for (var j = 1; j < response.length; j++) {
+                    if(breakOut == false){
+                        if(j == 1){
+                            (function(j) {
+                                var time = 25000;
+                                timeoutReference = setTimeout(function() {
+                                    console.log("Displaying Loading Screen....", 0);
+                                    toddle('LoadingScreen');
+                                    document.getElementById('Add_Round_Winner').textContent = winner;
+                                }, time-5000);
+                                arrayTimeoutReferences.push(timeoutReference);
+                                timeoutReference = setTimeout(function() {
+                                    console.log("Displaying Image ==> ", j);
+                                    toddle('InTheGame');
+                                    document.getElementById('imagelogo').src = images[j].image_url;
+                                }, time);
+                                arrayTimeoutReferences.push(timeoutReference);
+                            })(j);
+                        } else {
+                            (function(j) {
+                                var time2 = 25000 + (j-1)*20000;
+                                timeoutReference = setTimeout(function() {
+                                    console.log("Displaying Loading Screen....", j-1);
+                                    toddle('LoadingScreen');
+                                    document.getElementById('Add_Round_Winner').textContent = winner;
+                                }, time2-5000);
+                                arrayTimeoutReferences.push(timeoutReference);
+                                timeoutReference = setTimeout(function() {
+                                    console.log("Displaying Image ==> ", j);
+                                    toddle('InTheGame');
+                                    document.getElementById('imagelogo').src = images[j].image_url;
+                                }, time2);
+                                arrayTimeoutReferences.push(timeoutReference);
+                            })(j);
+                        }
+                    }
+                }
+                if(breakOut == false){
+                    timeoutReference = setTimeout(function(){
+                        console.log("Done Now!!!");
+                        toddle('gameOver');
+                        document.getElementById('Add_Name_Winner').textContent = winner;
+                    },120000);
+                    arrayTimeoutReferences.push(timeoutReference);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+    StartGameLoopNow(limit);
+}
