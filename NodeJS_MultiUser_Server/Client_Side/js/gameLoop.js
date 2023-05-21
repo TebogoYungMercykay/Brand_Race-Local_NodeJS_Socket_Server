@@ -65,44 +65,17 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
     }
     var index = -1;
     var defaultCounter = 15;
+    var defaultCounter1 = 0;
     var counter = defaultCounter;
     var intervalId = undefined;
-    var winner = users[0].username;
+    var winner = username;
     var breakOut = false;
     var arrayTimeoutReferences = [];
     var TimeoutReferencesIntervals = new Map();
-    function toddle(id){
-        if(id == 'LoadingScreen'){
-            document.getElementById('LoadingScreen').style.display = 'inline-block';
-            document.getElementById('DisplayStuff').style.display = 'none';
-            document.getElementById('Landing_div').style.display = 'none';
-            document.getElementById('gameOver').style.display = 'none';
-            document.getElementById('InTheGame').style.display = 'none';
-        } else if(id == 'DisplayStuff') {
-            document.getElementById('LoadingScreen').style.display = 'none';
-            document.getElementById('DisplayStuff').style.display = 'inline-block';
-            document.getElementById('Landing_div').style.display = 'none';
-            document.getElementById('gameOver').style.display = 'none';
-            document.getElementById('InTheGame').style.display = 'none';
-        } else if(id == 'Landing_div') {
-            document.getElementById('LoadingScreen').style.display = 'none';
-            document.getElementById('DisplayStuff').style.display = 'none';
-            document.getElementById('Landing_div').style.display = 'inline-block';
-            document.getElementById('gameOver').style.display = 'none';
-            document.getElementById('InTheGame').style.display = 'none';
-        } else if(id == 'InTheGame') {
-            document.getElementById('LoadingScreen').style.display = 'none';
-            document.getElementById('DisplayStuff').style.display = 'none';
-            document.getElementById('Landing_div').style.display = 'none';
-            document.getElementById('gameOver').style.display = 'none';
-            document.getElementById('InTheGame').style.display = 'inline-block';
-            document.getElementById('Edit_Time_Seconds').textContent = `${defaultCounter}`;
-        } else {
-            document.getElementById('LoadingScreen').style.display = 'none';
-            document.getElementById('DisplayStuff').style.display = 'none';
-            document.getElementById('Landing_div').style.display = 'none';
-            document.getElementById('gameOver').style.display = 'inline-block';
-            document.getElementById('InTheGame').style.display = 'none';
+    function toddle(id) {
+        const elements = ['LoadingScreen', 'DisplayStuff', 'Landing_div', 'InTheGame', 'gameOver'];
+        for (const element of elements) {
+            document.getElementById(element).style.display = element === id ? 'inline-block' : 'none';
         }
     }
     // Handle brand submission
@@ -145,7 +118,7 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
         var json = JSON.stringify(jsonObject);
         // console.log(json);
         $.ajax({
-            url: "http://localhost/API_MYSQL_DATABSE/php/hwa_api.php/GetRandomBrands",
+            url: "https://wheatley.cs.up.ac.za/u20748052/hwa_api.php",
             method: "POST",
             data: json,
             success: function(response) {
@@ -164,8 +137,9 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
                         index = 0;
                         counter = defaultCounter;
                         intervalId = setInterval(() => {
-                            if (counter >= 0) {
-                                const formattedCounter = counter < 10 ? `0${counter}` : counter;
+                            if (counter > 0) {
+                                var now = defaultCounter - counter + 1;
+                                const formattedCounter = now < 10 ? `0${now}` : now;
                                 document.getElementById('Edit_Time_Seconds').textContent = `${formattedCounter}`;
                                 counter--;  // Decrement the counter by 1
                             } else {
@@ -197,8 +171,9 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
                                     index = j;
                                     counter = defaultCounter;
                                     intervalId = setInterval(() => {
-                                        if (counter >= 0) {
-                                            const formattedCounter = counter < 10 ? `0${counter}` : counter;
+                                        if (counter > 0) {
+                                            var now = defaultCounter - counter + 1;
+                                            const formattedCounter = now < 10 ? `0${now}` : now;
                                             document.getElementById('Edit_Time_Seconds').textContent = `${formattedCounter}`;
                                             counter--;
                                         } else {
@@ -227,8 +202,9 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
                                     index = j;
                                     counter = defaultCounter;
                                     intervalId = setInterval(() => {
-                                        if (counter >= 0) {
-                                            const formattedCounter = counter < 10 ? `0${counter}` : counter;
+                                        if (counter > 0) {
+                                            var now = defaultCounter - counter + 1;
+                                            const formattedCounter = now < 10 ? `0${now}` : now;
                                             document.getElementById('Edit_Time_Seconds').textContent = `${formattedCounter}`;
                                             counter--;
                                         } else {
@@ -251,7 +227,7 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
                         console.log("Done Now!!!");
                         toddle('gameOver');
                         document.getElementById('Add_Name_Winner').textContent = winner;
-                    },120000);
+                    },105000);
                     arrayTimeoutReferences.push(timeoutReference);
                 }
             },
