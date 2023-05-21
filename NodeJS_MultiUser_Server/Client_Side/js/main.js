@@ -1,65 +1,27 @@
-// Extracting Username and Room from URL
-const { username, gameId } = Qs.parse(location.search, { ignoreQueryPrefix: true });
-
-const mySocket = io();
-
-// Enter Race
-mySocket.emit('EnterRace', { username, gameId });
-
-// Print Message from server
-mySocket.on('message', message => {
-    console.log('Message:', message);
-});
-
-// Handle user already exists
-mySocket.on('userAlreadyExists', username => {
-    console.log('User already exists with Username:', username);
-    window.location = '../index.html';
-});
-
-// Handle users and gameId
-mySocket.on('GamingUsers', ({ gameId, users }) => {
-    handleUsersAndGameId('GamingUsers', gameId, users);
-});
-
-// Listen for the "InTheGame" event
-mySocket.on('InTheGame', ({ gameId, users }) => {
-    console.log('Received InTheGame event');
-    handleUsersAndGameId('InTheGame', gameId, users);
-});
-
-// Listen for the "StartGame" event
-mySocket.on('StartGame', ({ gameId, users }) => {
-    console.log('Game Loop About to Start MFs');
-    handleUsersAndGameId('StartGame', gameId, users);
-});
-
-// Add users to DOM
-function handleUsersAndGameId(eventType, gameId, users) {
-    console.log('This made the Call:', eventType);
-    console.log('Client Game ID:', gameId);
-    const usernames = users.map(user => user.username).join(', ');
-    console.log('Client Connected Users:', usernames);
-}
-
 // Prompt the user before leaving the game
+$('#StartLoop').on('click', function (event) {
+  event.preventDefault();
+  var users = [];
+  users.push("Mathew");
+  users.push("John");
+  StartGameLoop(users, 'GameIdHere', 5, false);
+});
+
+$('#StopLoop').on('click', function (event) {
+  event.preventDefault();
+    StartGameLoop(undefined, undefined, undefined, true);
+});
+
 $('#Quit').on('click', function (event) {
-    event.preventDefault();
-    const leaveRoom = confirm('Are you sure you want to quit the game?');
-    if (leaveRoom) {
-        window.location = '../index.html';
-    }
+  event.preventDefault();
+  const leaveRoom = confirm('Are you sure you want to quit the game?');
+  if (leaveRoom) {
+      window.location = '../index.html';
+  }
 });
 
-// Handle brand submission
-$('#Submit_Brand').on('click', function (event) {
-    event.preventDefault();
-    const input = $('#brandName').val();
-    if (input === 'Audi') {
-        console.log('Correct Answer!!');
-    }
-});
-
+// TODO: Must Refine This Function, Which Is Basically an Implementation of The Game Loop.
+// TODO: The Intervals are Perfect, I just need to make sure they are Using Images from the API on the Wheatley server and not my Local API
 function StartGameLoop(users, gameId, limit, clearTimeouts) {
     document.getElementById('Add_Contestants').textContent = "CONTESTANTS ARRIVED!!";
     if (clearTimeouts == true) {
@@ -69,9 +31,14 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
     if (users == undefined || users.length == 0) {
       return;
     }
+    var index = -1;
+    var defaultCounter = 15;
+    var counter = defaultCounter;
+    var intervalId = undefined;
     var winner = users[0];
     var breakOut = false;
     var arrayTimeoutReferences = [];
+    var TimeoutReferencesIntervals = new Map();
     function toddle(id){
         if(id == 'LoadingScreen'){
             document.getElementById('LoadingScreen').style.display = 'inline-block';
@@ -97,6 +64,7 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
             document.getElementById('Landing_div').style.display = 'none';
             document.getElementById('gameOver').style.display = 'none';
             document.getElementById('InTheGame').style.display = 'inline-block';
+            document.getElementById('Edit_Time_Seconds').textContent = `${defaultCounter}`;
         } else {
             document.getElementById('LoadingScreen').style.display = 'none';
             document.getElementById('DisplayStuff').style.display = 'none';
@@ -105,12 +73,36 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
             document.getElementById('InTheGame').style.display = 'none';
         }
     }
+    // Handle brand submission
+    $('#Submit_Brand').on('click', function (event) {
+      event.preventDefault();
+      const input = $('#brandName').val();
+      if (input === 'Audi') {
+        console.log('Correct Answer!!');
+        if (intervalId !== undefined) {
+          clearInterval(intervalId);
+        }
+        if (TimeoutReferencesIntervals.size !== 0) {
+          const lastTimeoutId = TimeoutReferencesIntervals.get(index);
+          console.log(index);
+          if (lastTimeoutId) {
+            clearTimeout(lastTimeoutId);
+          }
+        }
+        toddle('LoadingScreen');
+      }
+    });
     function clearTimeouts() {
         for (var i = 0; i < arrayTimeoutReferences.length; i++) {
-            clearTimeout(arrayTimeoutReferences[i]);
+            if (arrayTimeoutReferences[i] != undefined) {
+                clearTimeout(arrayTimeoutReferences[i]);
+            }
         }
         arrayTimeoutReferences = []; // Reset the timeout references array
         breakOut = true;
+        if (intervalId !== undefined) {
+            clearInterval(intervalId);
+        }
     }
     function StartGameLoopNow(limit) {
         jsonObject = {
@@ -125,20 +117,38 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
             success: function(response) {
                 var images = response.data;
                 var timeoutReference = '';
-                console.log(images);
+                timeoutReference = setTimeout(function() {
+                  console.log(images);
+                }, 1000);
+                arrayTimeoutReferences.push(timeoutReference);
                 console.log("The Game will start in 5 Seconds!");
                 document.getElementById('Add_Contestants').textContent = users.join(' VS ');
                 toddle('DisplayStuff');
                 if(breakOut == false){
                     timeoutReference = setTimeout(function() {
                         console.log("Displaying Image ==> ", 0);
+                        index = 0;
+                        counter = defaultCounter;
+                        intervalId = setInterval(() => {
+                          if (counter >= 0) {
+                            const formattedCounter = counter < 10 ? `0${counter}` : counter;
+                            document.getElementById('Edit_Time_Seconds').textContent = `${formattedCounter}`;
+                            counter--;  // Decrement the counter by 1
+                          } else {
+                            counter = defaultCounter;
+                            clearInterval(intervalId);
+                            intervalId = undefined;
+                          }
+                        }, 1000);
                         toddle('InTheGame');
                         document.getElementById('imagelogo').src = images[0].image_url;
-                    }, 5000);
+                        TimeoutReferencesIntervals.set(0, timeoutReference);
+                    }, 4500);
                     arrayTimeoutReferences.push(timeoutReference);
                 }
                 for (var j = 1; j < response.length; j++) {
                     if(breakOut == false){
+                      clearInterval(intervalId);
                         if(j == 1){
                             (function(j) {
                                 var time = 25000;
@@ -150,8 +160,22 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
                                 arrayTimeoutReferences.push(timeoutReference);
                                 timeoutReference = setTimeout(function() {
                                     console.log("Displaying Image ==> ", j);
+                                    index = j;
+                                    counter = defaultCounter;
+                                    intervalId = setInterval(() => {
+                                      if (counter >= 0) {
+                                        const formattedCounter = counter < 10 ? `0${counter}` : counter;
+                                        document.getElementById('Edit_Time_Seconds').textContent = `${formattedCounter}`;
+                                        counter--;  // Decrement the counter by 1
+                                      } else {
+                                        counter = defaultCounter;
+                                        clearInterval(intervalId);
+                                        intervalId = undefined;
+                                      }
+                                    }, 1000);
                                     toddle('InTheGame');
                                     document.getElementById('imagelogo').src = images[j].image_url;
+                                    TimeoutReferencesIntervals.set(index, timeoutReference);
                                 }, time);
                                 arrayTimeoutReferences.push(timeoutReference);
                             })(j);
@@ -166,8 +190,22 @@ function StartGameLoop(users, gameId, limit, clearTimeouts) {
                                 arrayTimeoutReferences.push(timeoutReference);
                                 timeoutReference = setTimeout(function() {
                                     console.log("Displaying Image ==> ", j);
+                                    index = j;
+                                    counter = defaultCounter;
+                                    intervalId = setInterval(() => {
+                                      if (counter >= 0) {
+                                        const formattedCounter = counter < 10 ? `0${counter}` : counter;
+                                        document.getElementById('Edit_Time_Seconds').textContent = `${formattedCounter}`;
+                                        counter--;
+                                      } else {
+                                        counter = defaultCounter;
+                                        clearInterval(intervalId);
+                                        intervalId = undefined;
+                                      }
+                                    }, 1000);
                                     toddle('InTheGame');
                                     document.getElementById('imagelogo').src = images[j].image_url;
+                                    TimeoutReferencesIntervals.set(index, timeoutReference);
                                 }, time2);
                                 arrayTimeoutReferences.push(timeoutReference);
                             })(j);
