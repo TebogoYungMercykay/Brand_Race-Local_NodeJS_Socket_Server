@@ -1,13 +1,13 @@
 <?php
 // <!-- BRAND RACE -->
     include_once("config.php");
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['REQUEST_URI'] === $_SERVER['SCRIPT_NAME'] . '/GetRandomBrands'){
         // Storing the Input data in the $json_data variable
         $json_data = file_get_contents('php://input');
         // Now Executing things!!
         $cars_object = new POST_REQUEST($json_data);
     }
-    else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    else if($_SERVER['REQUEST_METHOD'] == 'GET' && $_SERVER['REQUEST_URI'] === $_SERVER['SCRIPT_NAME'] . '/GetRandomBrands'){
         $data = array(
             "limit" => 1
         );
