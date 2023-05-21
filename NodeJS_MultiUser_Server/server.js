@@ -5,41 +5,14 @@ const axios = require('axios');
 const jquery = require('jquery');
 const socketIo = require("socket.io");
 const readline = require('readline');
-// const createAdapter = require("@socket.io/redis-adapter").createAdapter;
-// const redis = require("redis");
-// const { createClient } = redis;
-require('dotenv').config({ path: 'set_env.env' });
 
+require('dotenv').config({ path: 'set_env.env' });
 const { UsersAndRooms, JoinLoop, getCurrentUser, LeaveGame, getUsersGameID } = require("./Client_Side/js/users");
 const expressApp = express();
 expressApp.use(express.urlencoded({ extended: true }));
 const nodeServer = http.createServer(expressApp);
 const mySocket = socketIo(nodeServer);
 expressApp.use(express.static(path.join(__dirname, 'Client_Side')));
-
-// (async () => {
-//     pubClient = createClient({ url: "redis://127.0.0.1:6379" });
-//     await pubClient.connect();
-//     subClient = pubClient.duplicate();
-//     io.adapter(createAdapter(pubClient, subClient));
-// })();
-// Make the request using axios
-
-// axios.post(process.env.WURL, {"limit":"5"}, {
-//     auth: {
-//         username: process.env.WUSERNAME,
-//         password: process.env.WPASSWORD
-//     }
-// })
-// .then(response => {
-//     // Handle the response data
-//     console.log(response.data);
-//     // res.send(response.data);
-// }).catch(error => {
-//     // Handle the error
-//     console.log(error);
-//     // res.status(500).send('Error occurred while sending the request.');
-// });
 
 // When A Client Connects
 mySocket.on('connection', socket => {
