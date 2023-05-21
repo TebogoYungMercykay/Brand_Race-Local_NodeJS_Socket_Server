@@ -17,10 +17,6 @@ function getCurrentUser(username) {
     return GameUsers.find(currentUser => currentUser.username === username);
 }
 
-function UserExists(username, gameId) {
-    return ((getCurrentUser(username)==undefined) && (getCurrentUser(gameId)==undefined));
-}
-
 // User leaves Loop
 function LeaveGame(id) {
     const index = GameUsers.findIndex(currentUser => currentUser.id === id);
@@ -35,10 +31,11 @@ function getUsersGameID(gameId) {
 }
 
 // Add users to DOM
-function UsersAndRooms(users, gameId) {
+function UsersAndRooms(fun, users, gameId) {
+    console.log('This made the Call: ', fun);
     console.log('Game ID:', gameId);
     var userNames = users.map(user => user.username).join(', ');
     console.log('Users:', userNames);
 }
 
-module.exports = { UsersAndRooms, JoinLoop, getCurrentUser, LeaveGame, getUsersGameID, UserExists };
+module.exports = { UsersAndRooms, JoinLoop, getCurrentUser, LeaveGame, getUsersGameID };
