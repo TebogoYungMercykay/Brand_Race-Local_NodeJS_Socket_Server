@@ -1,5 +1,11 @@
 # To Run The Server:
+---------------------------------------------------
 rm -rf node_modules
-npm install or npm i
-npm start
-npm run dev
+npm install  ||  npm i
+npm start  ||  npm run dev
+
+# Example Game IDs
+---------------------------------------------------
+l6iOVRWORs
+G9bSTZd9yA
+zLpewn2QaR
