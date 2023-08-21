@@ -199,7 +199,7 @@
 ---
 - ## OVERVIEW:
 - ###### To understand the flow of how this all works please consult the diagram below.
-        <img src="Images/Overview.png" height="500" width="600">
+  <img src="Images/Overview.png" height="500" width="600">
 
 ---
 - ## GAME DETAILS:
