@@ -1,0 +1,135 @@
+body {
+    background-color: rgb(228, 228, 228);
+}
+.page-name-purpose {
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    font-size: 60px;
+    text-align: center;
+    -webkit-text-stroke: 1px rgba(183, 183, 183, 0.628); /* width and color */
+}
+
+#send_post_request, #send_get_request, #clear_data {
+    font-size: 16px;
+}
+
+#post_css {
+    display: flex;
+    grid-gap: 5px;
+    color: rgb(35, 35, 35);
+    max-width: 1240px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid rgb(75, 75, 75);
+    background-color: rgba(0, 0, 0, 0.612);
+}
+
+#post_css .limit {
+    flex: 1;
+    width: 50%;
+    max-height: 50px;
+}
+
+#clear_data, #send_get_request {
+    width: 100%;
+    padding: 20px;
+}
+
+#clear_data, #send_get_request, #send_post_request{
+    border-color: rgba(153, 153, 153, 0.184);
+    background-color: rgba(119, 119, 119, 0.778);
+    color: rgb(237, 237, 237);
+    font-weight: 600;
+    font-family: "Lucida Console", "Courier New", monospace;
+    border-radius: 5px;
+}
+
+#limit_number {
+    border-color: rgba(153, 153, 153, 0.184);
+    color: rgb(57, 57, 57);
+    font-weight: 600;
+    font-family: "Lucida Console", "Courier New", monospace;
+    border-radius: 5px;
+}
+
+.top_class-brands-listings
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, auto));
+    grid-gap: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    max-width: 1240px;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.horizontal-row {
+    display: block;
+    margin-left: 5em;
+    width: 86%;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+/* listing brands  */
+.class-brands-listings
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, auto));
+    grid-gap: 50px;
+    color: rgb(0, 25, 34);
+    max-width: 1240px;
+    padding: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 15px;
+    background-color: rgba(196, 195, 195, 0.75);
+}
+
+.class-brands-listing2 {
+    padding: 10px;
+    border-radius: 9px;
+    border: 2px solid rgb(75, 75, 75);
+    background-color: rgba(0, 0, 0, 0.612);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.class-brands-listing
+{
+    padding: 10px;
+    border-radius: 9px;
+    border: 2px solid rgb(182, 182, 182);
+    background-color: rgba(255, 255, 255, 0.612);
+    box-shadow: 0 5px 5px rgba(255, 255, 255, 0.2);
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.class-brands-listing img
+{
+    width: 100%;
+    height: 300px;
+    display: block;
+    border-radius: 3%;
+}
+
+.class-brands-listing .brand-name
+{
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 20px;
+	font-weight: 600;
+    font-family: "Lucida Console", "Courier New", monospace;
+	text-transform: uppercase;
+}
+
+.class-brands-listing p
+{
+	padding: 0 20px 20px 20px;
+	line-height: 22px;
+    text-align: center;
+    font-size: 15px;
+}
