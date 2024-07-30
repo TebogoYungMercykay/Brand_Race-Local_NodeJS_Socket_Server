@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- Selepe Sello uXXXXXXXX -->
+<html lang="en">
+	<head>
+		<title>Brand Race</title>
+		<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="author" content="Selepe Sello"> 
+		<meta name="description" content="HWA">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="COS216 HWA, Pretoria, South Africa">
+        <link rel="icon" href="./favicon_io/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"  type="text/css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="./css/brand_race.css">
+    </head>
+	<body class="background-find-car">
+        <!-- <button id="StartLoop" class="btn btn-primary" type="button">
+            START
+        </button>
+        <button id="StopLoop" class="btn btn-primary" type="button">
+            STOP
+        </button> -->
+        <label id="players_div" class="form-label"><h2>BRAND RACE: <label id="Add_Contestants">We Are Waiting For A Fit Opponent!!</label></h2></label>
+        <!-- <label id="playes_div" class="form-label"><h2>BRAND RACE: <label id="Add_Contestants">Waiting For Opponent!</label></h2></label> -->
+        <hr>
+        <div id="Landing_div" class="slide active">
+            <h3 class="Timer_Purpose">WELCOME TO THE BRAND RACE!!</h3>
+            <div class="Image_Div">
+                <image class="ImageRendering" src="./Images/Mario.png" alt="5_Seconds_Countdown" title="5_Seconds_Countdown" />
+            </div>
+            <p id="Introduction">Please Hang In There While Your Opponent Is Joining The RACE, I am not sure if it's something you already know or what but THIS is the best RACE ever!!!</p>
+        </div>
+        <div id="InTheGame" class="logoContainer">
+            <div class="logo">
+              <form class="main-form" autocomplete="off">
+                    <h3 class="Timer_Purpose" id="Timer_Purpose"> Time Left: 00:<label id="Edit_Time_Seconds">15</label></h3>
+                    <div class="Image_Div">
+                      <image class="ImageRendering" id="imagelogo" src="./Images/Landing.jpg" alt="Brand Logo" title="Brand Logo" />
+                    </div>
+                    <label class="form-label"><h5>Guess Brand Name</h5></label>
+                    <input type="text" class="form-input" id="brandName" name="brandName" placeholder="Enter Brand Name..."><br>
+                    <div class="form-buttons">
+						<button type="submit" id="Submit_Brand" class="gameLoop">Submit</button>
+                    <!-- Tabs --> &nbsp;&nbsp;&nbsp;
+                    <button id="Quit" type="button" class="gameLoop">Leave Game</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="DisplayStuff" class="slide active">
+            <h3 class="Timer_Purpose">THE BRAND RACE STARTS IN 5 SECONDS!!</h3>
+            <div class="Image_Div">
+                <image class="ImageRendering" src="./Images/5_Seconds_Countdown.gif" alt="5_Seconds_Countdown" title="5_Seconds_Countdown" />
+            </div>
+            <h2>May The <strong>BEST</strong> Contestant Win.</h2>
+        </div>
+          <br>
+        <div id="LoadingScreen" class="slide active">
+            <h3 class="Timer_Purpose">NEXT ROUND LOADING...</h3>
+            <div class="Image_Div">
+                <image class="ImageRendering" src="./Images/giphy.gif" alt="Loading" title="Loading" />
+            </div>
+            <p>PREVIOUS ROUND WINNER: </p><br><h1 id="Add_Round_Winner">Timo</h1>
+        </div>
+          <br>
+        <div id="gameOver" class="slide active">
+            <h3 class="Timer_Purpose" >THE RACE IS OVER!!</h3>
+            <div class="Image_Div">
+                <image class="ImageRendering" src="./Images/Landing.jpg" alt="Game Over" title="Game Over" />
+            </div>
+            <p>AND THE WINNER IS: </p><br><h1 id="Add_Name_Winner">Timo</h1>
+        </div>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+            integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+            crossorigin="anonymous"
+        ></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+        <script type="text/javascript" src="./js/gameLoop.js"></script>
+	</body>
+</html>
